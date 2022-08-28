@@ -1,0 +1,1 @@
+<h1>Hola {{$nombre}} como estas loco</h1>
