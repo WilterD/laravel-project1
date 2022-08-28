@@ -2,57 +2,51 @@
 
 @section('contenido')
 
-<div class="container w-25 border p-4 mt-4">
-    <form action="{{ route('todos') }}" method="POST">
+<div class="container w-25 border p-4">
+    <div class="row mx-auto">
+    <form  method="POST" action="{{route('todos')}}">
         @csrf
 
-        @if (session('info'))
-        <div class="alert alert-success alert-dismissible fade show"  role="alert">
-            <strong>{{ session('info') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-
-        </div>
-        @endif
-
-
+        <div class="mb-3 col">
         @error('title')
-        <h6 class="alert alert-danger">
-            {{ $message }}
-        </h6>
+            <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <div class="mb-3">
-            <label for="title">Titulo</label>
-            <input class="form-control" type="text" name="title" placeholder="Add a new todo">
-            <button class="btn btn-primary" type="submit">Add</button>
+
+        @if (session('success'))
+                <h6 class="alert alert-success">{{ session('success') }}</h6>
+        @endif
+            <label for="title" class="form-label">Título de la tarea</label>
+            <input type="text" class="form-control mb-2" name="title" id="exampleFormControlInput1" placeholder="Comprar la cena">
+
+            <label for="category_id" class="form-label">Categoria de la tarea</label>
+            <select name="category_id" class="form-select">
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
+            <input type="submit" value="Crear tarea" class="btn btn-primary my-2" />
         </div>
     </form>
 
-
-    <div>
+    <div >
         @foreach ($todos as $todo)
-        <div class="border-bottom p-2">
-            <h6>{{ $todo->title }}</h6>
-            <div class="d-flex justify-content-between">
-                <div>
-                    <a href="{{ route('todos-edit', $todo->id) }}" class="btn btn-primary">Edit</a>
+        
+            <div class="row py-1">
+                <div class="col-md-9 d-flex align-items-center">
+                    <a href="{{ route('todos-edit', ['id' => $todo->id]) }}">{{ $todo->title }}</a>
                 </div>
-                <div>
-                    <form action="{{ route('todos-destroy', $todo->id) }}" method="POST">
-                        @csrf
+
+                <div class="col-md-3 d-flex justify-content-end">
+                    <form action="{{ route('todos-destroy', [$todo->id]) }}" method="POST">
                         @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Delete</button>
+                        @csrf
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </div>
             </div>
-            @endforeach
-        </div>
-
-
+            
+        @endforeach
     </div>
-
-
-
-
-    @endsection
+    </div>
+</div>
+@endsection

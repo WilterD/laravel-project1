@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TodosController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,12 @@ Route::get('/', function () {
 
 Route::get('/tareas', [TodosController::class, 'index'])->name('todos');
 
-
 // traer controlador como clase y especificar el metodo que se va a ejecutar como si fuera un arreglo y importamos el controlador
 Route::post('/tareas', [TodosController::class, 'store'])->name('todos');
 
-Route::get('/tareas/{id}', [TodosController::class, 'show'])->name('todos-edit');
-Route::patch('/tareas{id}', [TodosController::class, 'update'])->name('todos-update');
-Route::delete('/tareas', [TodosController::class, 'destroy'])->name('todos-destroy');
+Route::get('/todos/{id}', [TodosController::class, 'show'])->name('todos-edit');
+Route::patch('/todos/{id}', [TodosController::class, 'update'])->name('todos-update');
+Route::delete('/todos/{id}', [TodosController::class , 'destroy'])->name('todos-destroy');
+
+Route::resource('categories',CategoriesController::class);
 
