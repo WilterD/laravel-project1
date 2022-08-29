@@ -15,16 +15,21 @@
         @if (session('success'))
                 <h6 class="alert alert-success">{{ session('success') }}</h6>
         @endif
-            <label for="title" class="form-label">Título de la tarea</label>
-            <input type="text" class="form-control mb-2" name="title" id="exampleFormControlInput1" placeholder="Comprar la cena">
+            <label for="title" class="form-label">Título del evento</label>
+            <input type="text" class="form-control mb-2" name="title" id="exampleFormControlInput1" placeholder="Título">
 
-            <label for="category_id" class="form-label">Categoria de la tarea</label>
-            <select name="category_id" class="form-select">
-                @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
-                @endforeach
-            </select>
-            <input type="submit" value="Crear tarea" class="btn btn-primary my-2" />
+            <label for="description" class="form-label">Descripción (opcional)</label>
+            <textarea class="form-control mb-2" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción del evento"></textarea>
+
+            <label for="start_date" class="form-label">Fecha del Evento</label>
+            <input type="date" class="form-control mb-2" name="fecha" id="exampleFormControlInput1">
+
+            <!-- <label for="exampleColorInput" class="form-label">Escoge un color para el evento</label>
+                <input type="color" class="form-control form-control-color" name="color" id="exampleColorInput" value="#563d7c"> -->
+
+
+
+            <input type="submit" value="Crear Evento" class="btn btn-primary my-2" />
         </div>
     </form>
 

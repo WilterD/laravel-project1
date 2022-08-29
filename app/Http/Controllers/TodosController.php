@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo; // Importar Modelo
-use App\Models\Category; // Importar Modelo categoria
+
 
 
 class TodosController extends Controller
@@ -20,10 +20,9 @@ class TodosController extends Controller
     {
 
         $todos = Todo::all();
-        $categories = Category::all();
 
         return view('todos.index', [
-            'todos' => $todos, 'categories' => $categories
+            'todos' => $todos
         ]);
     }
     public function store(Request $request)
@@ -35,7 +34,8 @@ class TodosController extends Controller
         // TODO guardar el registro en la base de datos
         $todo = new Todo;
         $todo->title = $request->title;
-        $todo->category_id = $request->category_id;
+        $todo->description = $request->description;
+        $todo->fecha = $request->fecha;
         $todo->save();
 
         return redirect()->route('todos')->with('success', 'Tarea creada correctamente');
@@ -43,17 +43,7 @@ class TodosController extends Controller
 
 
 
-    public function show($id)
-    {
-
-        $todo = Todo::find($id); // tengo id y lo busco en la base de datos, lo guardo en la variable $todo , viene de TodosController el parametro de id
-
-        $categories = Category::all();
-
-        return view('todos.show', [
-            'todo' => $todo, 'categories' => $categories
-        ]);
-    }
+    
     public function update(Request $request, $id)
     {
 
