@@ -38,7 +38,7 @@ class TodosController extends Controller
         $todo->category_id = $request->category_id;
         $todo->save();
 
-        return redirect()->route('todos')->with('info', 'Todo created successfully');
+        return redirect()->route('todos')->with('success', 'Tarea creada correctamente');
     }
 
 

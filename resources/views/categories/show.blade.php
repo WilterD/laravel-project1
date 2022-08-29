@@ -4,7 +4,7 @@
 
 <div class="container w-25 border p-4">
     <div class="row mx-auto">
-    <form  method="POST" action="{{route('categories.update',['category' => $category->id])}}">
+    <form  method="POST" action="{{route('categories.update',$category->id)}}">
         @method('PATCH')
         @csrf
 
@@ -33,7 +33,7 @@
     </form>
 
     <div >
-    @if ($category->todos->count() > 0)
+    @if ($category->todos)
         @foreach ($category->todos as $todo )
             <div class="row py-1">
                 <div class="col-md-9 d-flex align-items-center">
